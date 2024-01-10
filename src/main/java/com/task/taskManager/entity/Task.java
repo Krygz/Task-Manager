@@ -22,8 +22,8 @@ public class Task implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ" , locale = "GMT")
     private Instant createAt;
     private TaskStatus status;
-    @Transient
-    @ManyToOne
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "client_id")
     private User client;
     public Task() {
@@ -34,7 +34,7 @@ public class Task implements Serializable {
         this.name = name;
         this.description = description;
         this.createAt = createAt;
-        this.status = status;
+        setStatus(status);
         this.client =  client;
     }
 
